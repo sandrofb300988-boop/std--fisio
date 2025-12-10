@@ -93,9 +93,14 @@ const App: React.FC = () => {
               <div className="bg-teal-50 p-2 rounded-xl group-hover:bg-teal-100 transition-colors duration-300">
                 <Activity className="h-8 w-8 text-teal-500" />
               </div>
-              <span className="ml-3 text-2xl font-extrabold text-teal-800 tracking-tight group-hover:text-teal-600 transition-colors">
-                Studio Fisio&Pilates
-              </span>
+              <div className="ml-3 flex flex-col justify-center">
+                <span className="text-2xl font-extrabold text-teal-800 tracking-tight group-hover:text-teal-600 transition-colors leading-none">
+                  Studio Fisio&Pilates
+                </span>
+                <span className="text-sm font-semibold text-teal-500 tracking-[0.2em] uppercase mt-0.5 group-hover:text-teal-400 transition-colors">
+                  Gravataí
+                </span>
+              </div>
             </a>
 
             {/* Desktop Menu */}
@@ -105,9 +110,10 @@ const App: React.FC = () => {
               <a href="#services" onClick={(e) => scrollToSection(e, 'services')} className={getLinkClasses('services')}>Serviços</a>
               <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className={getLinkClasses('contact')}>Contato</a>
               <a 
-                href="#contact"
-                onClick={(e) => scrollToSection(e, 'contact')}
-                className="bg-teal-500 text-white font-bold px-6 py-2.5 rounded-full hover:bg-teal-600 transition-all shadow-lg shadow-teal-200 hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer"
+                href={`https://wa.me/55${BUSINESS_DATA.phone.replace(/\D/g, '')}`}
+                target="_blank"
+                rel="noreferrer"
+                className="bg-teal-500 text-white font-bold px-6 py-2.5 rounded-full hover:bg-teal-600 transition-all shadow-lg shadow-teal-200 hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer flex items-center gap-2"
               >
                 Agendar Agora
               </a>
@@ -129,6 +135,14 @@ const App: React.FC = () => {
             <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className={getLinkClasses('about', true)}>Sobre Nós</a>
             <a href="#services" onClick={(e) => scrollToSection(e, 'services')} className={getLinkClasses('services', true)}>Serviços</a>
             <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className={getLinkClasses('contact', true)}>Contato</a>
+            <a 
+              href={`https://wa.me/55${BUSINESS_DATA.phone.replace(/\D/g, '')}`}
+              target="_blank"
+              rel="noreferrer"
+              className="block w-full text-center mt-4 bg-teal-500 text-white font-bold px-6 py-3 rounded-md hover:bg-teal-600 transition-colors"
+            >
+              Agendar no WhatsApp
+            </a>
           </div>
         </div>
       </nav>
@@ -234,7 +248,7 @@ const App: React.FC = () => {
                     Agende sua avaliação hoje mesmo e dê o primeiro passo para uma vida sem dores. Estamos te esperando!
                   </p>
                   <div className="space-y-4">
-                    <a href="https://wa.me/5551999660344" className="block w-full text-center bg-white text-teal-900 font-bold py-4 rounded-xl hover:bg-teal-50 transition-colors shadow-lg">
+                    <a href={`https://wa.me/55${BUSINESS_DATA.phone.replace(/\D/g, '')}`} target="_blank" rel="noreferrer" className="block w-full text-center bg-white text-teal-900 font-bold py-4 rounded-xl hover:bg-teal-50 transition-colors shadow-lg">
                       Chamar no WhatsApp
                     </a>
                     <p className="text-center text-sm text-teal-300">
@@ -274,7 +288,10 @@ const App: React.FC = () => {
                  <div className="bg-teal-800 p-2 rounded-xl group-hover:bg-teal-700 transition-colors">
                     <Activity className="h-6 w-6 text-teal-400 group-hover:text-teal-300" />
                  </div>
-                 <span className="ml-3 text-2xl font-bold tracking-wide group-hover:text-teal-100 transition-colors">Studio Fisio&Pilates</span>
+                 <div className="ml-3 flex flex-col justify-center">
+                   <span className="text-2xl font-bold tracking-wide group-hover:text-teal-100 transition-colors leading-none">Studio Fisio&Pilates</span>
+                   <span className="text-xs font-semibold text-teal-400 tracking-[0.2em] uppercase mt-1 group-hover:text-teal-200 transition-colors">Gravataí</span>
+                 </div>
               </a>
               <p className="text-teal-200 text-sm leading-relaxed max-w-sm">
                 Sua saúde em primeiro lugar. Profissionais dedicados, ambiente acolhedor e resultados reais para sua qualidade de vida.

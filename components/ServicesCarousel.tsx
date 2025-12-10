@@ -1,22 +1,38 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronRight, ChevronLeft, ArrowDown } from 'lucide-react';
-import { SERVICES_DATA } from '../constants';
+import { SERVICES_DATA, BUSINESS_DATA } from '../constants';
 import ServiceIcon from './ServiceIcon';
 
 const ServicesCarousel: React.FC<{ onNavigate: (e: React.MouseEvent<HTMLAnchorElement>, id: string) => void }> = ({ onNavigate }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const prev = () => {
     setCurrentIndex((curr) => (curr === 0 ? SERVICES_DATA.length - 1 : curr - 1));
   };
 
-  const next = () => {
+  const next = useCallback(() => {
     setCurrentIndex((curr) => (curr === SERVICES_DATA.length - 1 ? 0 : curr + 1));
-  };
+  }, []);
+
+  // Auto-play logic: runs every 4 seconds unless paused by hover
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      next();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, next]);
 
   return (
-    <div className="relative max-w-4xl mx-auto">
+    <div 
+      className="relative max-w-4xl mx-auto"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       {/* Carousel Track - Increased height for mobile to prevent content clipping */}
       <div className="overflow-hidden rounded-2xl shadow-xl border border-teal-50 bg-white relative h-[750px] md:h-[500px] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
         {SERVICES_DATA.map((service, index) => (
@@ -55,8 +71,9 @@ const ServicesCarousel: React.FC<{ onNavigate: (e: React.MouseEvent<HTMLAnchorEl
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a 
-                    href="#contact" 
-                    onClick={(e) => onNavigate(e, 'contact')}
+                    href={`https://wa.me/55${BUSINESS_DATA.phone.replace(/\D/g, '')}?text=Olá, tenho interesse em ${encodeURIComponent(service.title)}`}
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex items-center text-white bg-teal-500 hover:bg-teal-600 font-bold py-3 px-6 rounded-full transition-colors shadow-md hover:shadow-lg"
                   >
                     Agendar agora <ChevronRight className="w-5 h-5 ml-2" />
