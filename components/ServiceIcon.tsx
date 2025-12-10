@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   CheckCircle, 
@@ -9,8 +8,7 @@ import {
   HeartPulse, 
   Baby, 
   UserCheck, 
-  HandHeart,
-  LucideProps
+  HandHeart
 } from 'lucide-react';
 
 export const iconMap: Record<string, React.ElementType> = {
@@ -24,13 +22,16 @@ export const iconMap: Record<string, React.ElementType> = {
   'hand-heart': HandHeart
 };
 
-interface ServiceIconProps extends LucideProps {
+// Use standard React SVG props to avoid import errors with LucideProps in some environments
+interface ServiceIconProps extends React.SVGProps<SVGSVGElement> {
   iconKey: string;
+  size?: string | number;
 }
 
-const ServiceIcon: React.FC<ServiceIconProps> = ({ iconKey, ...props }) => {
+const ServiceIcon: React.FC<ServiceIconProps> = ({ iconKey, size, ...props }) => {
   const IconComponent = iconMap[iconKey] || CheckCircle;
-  return <IconComponent {...props} />;
+  // Pass size explicitly if provided, otherwise let className or default handle it
+  return <IconComponent size={size} {...props} />;
 };
 
 export default ServiceIcon;

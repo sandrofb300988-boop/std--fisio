@@ -1,20 +1,39 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Studio Fisio&Pilates Landing Page
 
-# Run and deploy your AI Studio app
+Uma landing page moderna e responsiva desenvolvida para o Studio Fisio&Pilates em Gravataí, RS. O projeto utiliza React, Tailwind CSS e integração com IA (Google Gemini) para assistente virtual (opcional).
 
-This contains everything you need to run your app locally.
+## 🚀 Tecnologias
 
-View your app in AI Studio: https://ai.studio/apps/drive/102vn65KK13QjJsPsq_xNbTK83P3dq5ah
+- **React 19**: Biblioteca UI.
+- **Tailwind CSS**: Estilização.
+- **Lucide React**: Ícones.
+- **Google GenAI SDK**: Inteligência artificial (opcional).
 
-## Run Locally
+## 📦 Como rodar localmente
 
-**Prerequisites:**  Node.js
+1. Clone o repositório.
+2. Instale as dependências (se estiver usando um ambiente Node.js):
+   ```bash
+   npm install
+   ```
+3. Rode o projeto:
+   ```bash
+   npm start
+   ```
 
+## ☁️ Deploy na Vercel
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Este projeto está pronto para ser implantado na Vercel.
+
+1. Faça o push do código para o GitHub.
+2. Acesse [Vercel](https://vercel.com) e importe o projeto do GitHub.
+3. As configurações de build geralmente são detectadas automaticamente (Create React App ou Vite).
+4. **Variáveis de Ambiente**:
+   - Para ativar o assistente de IA, adicione a variável de ambiente `API_KEY` nas configurações do projeto na Vercel com sua chave da API do Google Gemini.
+
+## 📱 Funcionalidades
+
+- **Design Responsivo**: Funciona perfeitamente em mobile e desktop.
+- **Scroll Suave**: Navegação fluida entre seções.
+- **Carrosséis Otimizados**: Imagens com lazy loading e formatos modernos.
+- **Assistente Virtual**: Código pronto para integração com Google Gemini (atualmente desativado na interface principal, mas funcional no código).
