@@ -37,7 +37,8 @@ const App: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Use passive listener for better scroll performance on modern browsers
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
