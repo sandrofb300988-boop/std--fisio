@@ -74,10 +74,10 @@ const ServicesCarousel: React.FC<{ onNavigate: (e: React.MouseEvent<HTMLAnchorEl
         ))}
       </div>
 
-      {/* Navigation Buttons */}
+      {/* Navigation Buttons - Hidden on Mobile to improve visibility */}
       <button 
         onClick={prev}
-        className="absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 w-12 h-12 bg-white text-teal-600 rounded-full shadow-lg flex items-center justify-center hover:bg-teal-50 hover:scale-110 transition-all z-20"
+        className="hidden md:flex absolute top-1/2 -left-12 -translate-y-1/2 w-12 h-12 bg-white text-teal-600 rounded-full shadow-lg items-center justify-center hover:bg-teal-50 hover:scale-110 transition-all z-20"
         aria-label="Serviço anterior"
       >
         <ChevronLeft className="w-6 h-6" />
@@ -85,7 +85,7 @@ const ServicesCarousel: React.FC<{ onNavigate: (e: React.MouseEvent<HTMLAnchorEl
 
       <button 
         onClick={next}
-        className="absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 w-12 h-12 bg-white text-teal-600 rounded-full shadow-lg flex items-center justify-center hover:bg-teal-50 hover:scale-110 transition-all z-20"
+        className="hidden md:flex absolute top-1/2 -right-12 -translate-y-1/2 w-12 h-12 bg-white text-teal-600 rounded-full shadow-lg items-center justify-center hover:bg-teal-50 hover:scale-110 transition-all z-20"
         aria-label="Próximo serviço"
       >
         <ChevronRight className="w-6 h-6" />

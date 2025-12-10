@@ -20,7 +20,7 @@ const App: React.FC = () => {
       setScrollY(window.scrollY);
       // Adjust offset for trigger point (header is h-20 = 80px)
       const headerHeight = 80;
-      const scrollPosition = window.scrollY + headerHeight + 50; 
+      const scrollPosition = window.scrollY + headerHeight + 100; // Increased offset for better detection
 
       const sections = ['home', 'about', 'services', 'contact'];
       
@@ -46,7 +46,8 @@ const App: React.FC = () => {
     e.preventDefault();
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerOffset = 80; // height of h-20 (5rem)
+      // Offset matches the header height plus a little breathing room
+      const headerOffset = 100; 
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
@@ -55,8 +56,11 @@ const App: React.FC = () => {
         behavior: "smooth"
       });
       setIsMobileMenuOpen(false);
-      // Temporarily set active to give immediate feedback
-      setActiveSection(sectionId);
+      
+      // Temporarily set active to give immediate feedback if it's a main section
+      if (['home', 'about', 'services', 'contact'].includes(sectionId)) {
+        setActiveSection(sectionId);
+      }
     }
   };
 
