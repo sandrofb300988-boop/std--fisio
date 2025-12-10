@@ -6,11 +6,12 @@ let aiClient: GoogleGenAI | null = null;
 // Initialize client lazily to avoid issues if env var is missing during initial load (though it should be present)
 const getAiClient = () => {
   if (!aiClient) {
-    if (!process.env.API_KEY) {
-      console.error("API_KEY is missing from environment variables.");
+    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+      aiClient = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    } else {
+      console.warn("API_KEY environment variable is not set. AI features disabled.");
       return null;
     }
-    aiClient = new GoogleGenAI({ apiKey: process.env.API_KEY });
   }
   return aiClient;
 };
@@ -19,20 +20,13 @@ export const sendMessageToGemini = async (
   history: { role: string; text: string }[],
   newMessage: string
 ): Promise<string> => {
-  const client = getAiClient();
-  
-  if (!client) {
-    return "Desculpe, o serviço de chat está temporariamente indisponível (Chave de API não configurada). Por favor, ligue para nós.";
-  }
-
   try {
-    // We construct a chat session. In a real persistent app we'd keep the 'chat' object alive,
-    // but for this stateless implementation, we reconstruct context or use generateContent with history context.
-    // For simplicity and robustness in this demo, we will use generateContent with the system instruction and recent history.
+    const client = getAiClient();
     
-    // Format history for the model prompt context if needed, but the SDK supports chat structure better.
-    // Let's use the proper chat interface.
-    
+    if (!client) {
+      return "O serviço de assistente virtual está temporariamente indisponível. Por favor, entre em contato conosco diretamente pelo WhatsApp ou telefone.";
+    }
+
     const chat = client.chats.create({
       model: 'gemini-2.5-flash',
       config: {
@@ -48,9 +42,31 @@ export const sendMessageToGemini = async (
       message: newMessage
     });
 
-    return result.text || "Desculpe, não entendi. Pode repetir?";
-  } catch (error) {
+    if (!result.text) {
+        throw new Error("Empty response from Gemini model");
+    }
+
+    return result.text;
+  } catch (error: any) {
     console.error("Error communicating with Gemini:", error);
-    return "Ocorreu um erro ao processar sua mensagem. Por favor, tente novamente ou nos ligue.";
+    
+    // Extract error message for specific handling
+    const errorMessage = error.message || "";
+
+    // Handle specific error cases gracefully
+    if (errorMessage.includes("503") || errorMessage.includes("overloaded")) {
+        return "Estou recebendo muitas mensagens no momento. Por favor, aguarde alguns segundos e tente novamente.";
+    }
+
+    if (errorMessage.includes("SAFETY")) {
+        return "Desculpe, não consigo responder a essa pergunta específica. Podemos falar sobre os serviços do Studio?";
+    }
+
+    if (errorMessage.includes("API_KEY") || errorMessage.includes("403")) {
+        return "Ops, estamos com um problema técnico de configuração. Por favor, nos avise pelo WhatsApp.";
+    }
+
+    // Generic fallback
+    return "Desculpe, ocorreu um erro técnico ao processar sua mensagem. Poderia tentar novamente ou nos contatar por telefone?";
   }
 };
